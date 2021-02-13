@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block styles_yet %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+
+{% endblock %}
+{% block page_content %}
+
+<div class="container row text-center overflow-auto">
+    <div class="container row">
+        <div class="col text-left">
+            <p >{{ row.date }}</p>
+        </div>
+        <div id="timeDown" class="com text-right">
+            <p>30</p>
+        </div>
+    </div>
+    <div class="gauge-container">
+        <div class="gauge-hmv"></div>
+        <div class="gauge-Puffer"></div>
+        <div class="gauge-Collector"></div>
+    </div>
+</div>
+
+<svg width="0" height="0" version="1.1" class="gradient-mask" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="gradientGauge">
+          <stop class="color-blue" offset="0%"/>
+          <stop class="color-lightblue" offset="17%"/>
+          <stop class="color-green" offset="40%"/>
+          <stop class="color-yellow" offset="87%"/>
+          <stop class="color-red" offset="100%"/>
+        </linearGradient>
+    </defs>  
+</svg>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/17.1.6/js/dx.all.js"></script>
+    
+    <script>
+       $(function () {
+
+            class GaugeChart {
+                constructor(element, params) {
+                    this._element = element;
+                    this._initialValue = params.initialValue;
+                    this._higherValue = params.higherValue;
+                    this._title = params.title;
+                    this._subtitle = params.subtitle;
+                }
+
+                _buildConfig() {
+                    let element = this._element;
+
+                    return {
+                        value: this._initialValue,
+                        valueIndicator: {
+                            color: '#fff' 
+                        },
+
+                        geometry: {
+                            startAngle: 200,
+                            endAngle: -20 },
+
+                            scale: {
+                                startValue: 0,
+                                endValue: this._higherValue,
+                                //customTicks: [0, 25, 40, 60, 80, 100, 120],
+                                tick: {
+                                length: 8},
+
+                                label: {
+                                    font: {
+                                        color: '#87959f',
+                                        size: 12,
+                                        family: '"Open Sans", sans-serif' 
+                                    } 
+                                } 
+                            },
+
+                            title: {
+                                verticalAlignment: 'bottom',
+                                text: this._title,
+                                font: {
+                                    family: '"Open Sans", sans-serif',
+                                    color: '#fff',
+                                    size: 16 
+                                },
+
+                                subtitle: {
+                                    text: this._subtitle,
+                                    font: {
+                                        family: '"Open Sans", sans-serif',
+                                        color: '#fff',
+                                        weight: 700,
+                                        size: 24 
+                                    } 
+                                } 
+                            },
+
+                        onInitialized: function () {
+                            let currentGauge = $(element);
+                            let circle = currentGauge.find('.dxg-spindle-hole').clone();
+                            let border = currentGauge.find('.dxg-spindle-border').clone();
+
+                            currentGauge.find('.dxg-title text').first().attr('y', 48);
+                            currentGauge.find('.dxg-title text').last().attr('y', 28);
+                            currentGauge.find('.dxg-value-indicator').append(border, circle);
+                        } 
+                    };
+
+                }
+
+                init() {
+                    $(this._element).dxCircularGauge(this._buildConfig());
+                }
+            }
+
+            $(document).ready(function () {
+
+                $('.gauge-hmv').each(function (index, item) {
+                    let params = {
+                    initialValue: '{{ row.temperature }}',
+                    higherValue: 80,
+                    title: `Temperature HMV`,
+                    subtitle: '{{ row.temperature}} ºC' };
+
+
+                    let gaugehmv = new GaugeChart(item, params);
+                    gaugehmv.init();
+                });
+                $('.gauge-Puffer').each(function (index, item) {
+                    let params = {
+                    initialValue: '{{ row.temperature}}',
+                    higherValue: 90,
+                    title: `Temperature Puffer`,
+                    subtitle: '{{ row.temperature}} ºC' };
+
+
+                    let gaugepuffer = new GaugeChart(item, params);
+                    gaugepuffer.init();
+                });
+                $('.gauge-Collector').each(function (index, item) {
+                    let params = {
+                    initialValue: '{{ row.temperature}}',
+                    higherValue: 150,
+                    title: `Temperature Collector`,
+                    subtitle: '{{ row.temperature}} ºC' };
+
+
+                    let gaugecollector = new GaugeChart(item, params);
+                    gaugecollector.init();
+                });
+                
+                var counter = 30; // page reload this seconds
+                setInterval(
+                    function () {
+                        counter--;
+
+                        $('#timeDown').html(counter);
+
+                        if (counter === 0) {
+                            location.reload();
+                        }
+
+                    },1000
+                );
+            });
+
+        });
+        
+    </script>
+{% endblock %}

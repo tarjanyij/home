@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="row justify-content-center align-items-center text-center" style="height:70%;">
+    <div class="page-header">
+        <h1>&bdquo; Huston, I have a problem.  &rdquo;</h1>
+        <br>
+        <h2>{{ error_text.name }}</h2>
+        <h4>{{ error_text.description }}</h4>
+    </div>
+</div>
+{% endblock %}

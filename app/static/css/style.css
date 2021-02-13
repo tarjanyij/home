@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(140deg, #212629, #395467);
+  min-height: 150vh;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  
+}
+
+.color-lightblue {
+  stop-color: #2e9fcc;
+}
+
+.color-blue {
+  stop-color: #3143e2;
+}
+
+.color-red {
+  stop-color: #e23131;
+}
+
+.color-yellow {
+  stop-color: #fbe500;
+}
+
+.color-green {
+  stop-color: #25cd6b;
+}
+
+
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.main__title {
+  text-align: center;
+  font-size: 28px;
+}
+
+.gradient-mask {
+  visibility: hidden;
+}
+
+
+
+.gauge-container {
+  padding: 20px;
+  /* margin-top: 80px; */
+  display: flex;
+  justify-content: space-around;
+}
+
+.gauge-hmv{
+  height: 260px;
+  width: 300px;
+}
+.gauge-hmv.dxg-range.dxg-background-range {
+  fill: url(#gradientGauge);
+}
+.gauge-hmv.dxg-line {
+  -webkit-transform: scaleX(1.04) scaleY(1.03) translate(-4px, -4px);
+          transform: scaleX(1.04) scaleY(1.03) translate(-4px, -4px);
+}
+.gauge-hmv.dxg-line path:first-child,
+.gauge-hmv.dxg-line path:last-child {
+  display: none;
+}
+.gauge-hmv.dxg-line path:nth-child(7),
+.gauge-hmv.dxg-line path:nth-child(6) {
+  stroke: #ed811c;
+}
+.gauge-hmv.dxg-line path:nth-child(4),
+.gauge-hmv.dxg-line path:nth-child(5) {
+  stroke: #a7db29;
+}
+.gauge-hmv.dxg-line path:nth-child(3),
+.gauge-hmv.dxg-line path:nth-child(2) {
+  stroke: #25cd6b;
+}
+.gauge-hmv.dxg-elements text:first-child {
+  -webkit-transform: translate(19px, 13px);
+          transform: translate(19px, 13px);
+}
+.gauge-hmv.dxg-elements text:last-child {
+  -webkit-transform: translate(-27px, 14px);
+          transform: translate(-27px, 14px);
+}
+.gauge-hmv.dxg-value-indicator path {
+  -webkit-transform: scale(1.2) translate(0, -5px);
+          transform: scale(1.2) translate(0, -5px);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+.gauge-hmv.dxg-value-indicator .dxg-title {
+  text-transform: uppercase;
+}
+.gauge-hmv.dxg-value-indicator .dxg-title text:first-child {
+  -webkit-transform: translateY(5px);
+          transform: translateY(5px);
+}
+.gauge-hmv.dxg-value-indicator .dxg-spindle-border:nth-child(4),
+.gauge-hmv.dxg-value-indicator .dxg-spindle-hole:nth-child(5) {
+  -webkit-transform: translate(0, -109px);
+          transform: translate(0, -109px);
+}
+.gauge-hmv.dxg-value-indicator .dxg-spindle-hole {
+  fill: #26323a;
+}

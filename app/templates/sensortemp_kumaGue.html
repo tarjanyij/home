@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<table>
+
+    <tr>
+        <td>{{ row.thermosensor_id }}</a></td>
+        <td>{{ row.temperature }}</td>
+        <td>{{ row.date }}</td>
+    </tr>
+
+</table>
+<div class="container row justify-content-center text-center overflow-auto">
+    <div class="js-gauge js-gauge--Collector gauge"></div>
+    <div class="js-gauge js-gauge--HMV gauge"></div>
+    <div class="js-gauge js-gauge--Puffer gauge"></div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static',filename='js/raphael-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/kuma-gauge.jquery.js') }}"></script>
+
+    <script>
+        $('.js-gauge--HMV').kumaGauge({
+            value : '{{ row.temperature}}',
+            showNeedle : false,
+            min : 0,
+            max : 150,
+            title : {
+                // show or hide this label
+                display : true,
+                // String the value of the title
+                value : 'HMV °C',
+                // The font family of this label
+                fontFamily : 'Arial',
+                // The font color of this label
+                fontColor : '#000',
+                // Integer of The font size of this label (without px)
+                fontSize : 20,
+                // The font weight of this label
+                fontWeight : 'normal'
+                }
+        });
+        $('.js-gauge--Collector').kumaGauge({
+            value : '{{ row.temperature}}',
+            showNeedle : false,
+            min : 0,
+            max : 150,
+            title : {
+                // show or hide this label
+                display : true,
+                // String the value of the title
+                value : 'Collector °C',
+                // The font family of this label
+                fontFamily : 'Arial',
+                // The font color of this label
+                fontColor : '#000',
+                // Integer of The font size of this label (without px)
+                fontSize : 20,
+                // The font weight of this label
+                fontWeight : 'normal'
+                }
+        });
+        $('.js-gauge--Puffer').kumaGauge({
+            value : '{{ row.temperature}}',
+            showNeedle : false,
+            min : 0,
+            max : 150,
+            title : {
+                // show or hide this label
+                display : true,
+                // String the value of the title
+                value : 'Puffer °C',
+                // The font family of this label
+                fontFamily : 'Arial',
+                // The font color of this label
+                fontColor : '#000',
+                // Integer of The font size of this label (without px)
+                fontSize : 20,
+                // The font weight of this label
+                fontWeight : 'normal'
+                }
+        });
+        
+    </script>
+{% endblock %}

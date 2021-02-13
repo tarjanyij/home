@@ -1,0 +1,105 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Building automation {% endblock %}
+
+{% block styles_yet %}
+<style>
+    .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .fill-height {
+        min-height: 100%;
+        height: 100vh;
+        vertical-align: middle;
+    }
+
+    body {
+        background-image: linear-gradient(140deg, #212629, #395467);
+        min-height: 150vh;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        position: relative;
+
+    }
+</style>
+{% endblock %}
+
+{% block body_attribs %} class="overflow-hidden" {% endblock body_attribs %}
+
+{% block navbar %}
+<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar bg-primary">
+    <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static',filename='orangepione.jpg') }}" width="30" height="30"
+            class="d-inline-block align-top" alt="" loading="lazy">
+        {% if current_user.is_authenticated %}
+        Welcome, {{ name }}!
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        Navbar
+        {% endif %}
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('main.index') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
+            </li>
+            {% endif %}
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.signup') }}">Signup</a>
+            </li>
+
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.sensortemp') }}">Temperature</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.environment') }}">Environment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+        {% if current_user.is_authenticated %}
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        {% endif %}
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<main>
+
+    <div class="container fill-height overflow-auto">
+        {% block page_content %}
+        {% endblock %}
+    </div>
+
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}
