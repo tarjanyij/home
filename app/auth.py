@@ -29,10 +29,12 @@ def login_post():
     return redirect(url_for('main.sensortemp'))
 
 @auth.route('/signup')
+@login_required
 def signup():
     return render_template('signup.html')
 
 @auth.route('/signup', methods=['POST'])
+@login_required
 def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')

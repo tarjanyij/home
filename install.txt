@@ -5,6 +5,10 @@ python -m venv venv
 python.exe -m pip install --upgrade pip
 
 # python module install
-pip install flask flask-sqlalchemy flask-login 
-pip install Flask-BS4
-pip install py-cpuinfo
+pip install -r reqiments.txt
+
+
+
+
+#sql 
+select temperature, date, sensorname from temperature left join sensor_config on temperature.thermosensor_id = sensor_config.sensorid order by date desc limit 2

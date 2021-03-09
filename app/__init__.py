@@ -18,9 +18,9 @@ def create_app():
     
     app.config['SECRET_KEY'] = 'Titokos_kulcs_12345'
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://tempwriter:Titok12345@127.0.0.1/home'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://tempwriter:Titok12345@192.168.8.250/home'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        
+    
     db.init_app(app)
     Migrate(app, db)
     Bootstrap(app)
@@ -50,5 +50,9 @@ def create_app():
     # blueprint registration api
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
+
+    # blueprint registration api
+    from app.admin import bp as admin_bp
+    app.register_blueprint(admin_bp, url_prefix='/admin')
     
     return app

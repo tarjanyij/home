@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block styles_yet %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+
+{% endblock %}
+{% block page_content %}
+<div class=" container overflow-auto">
+    <br>
+    <br>
+    <form method="POST" action="/sensorconfig">
+        <div id="configRow">
+
+            {% for sensorConfig in sensorConfigs %}
+            <div class="form-row ">
+
+                <div class="col-md-4 offset-md-2">
+                    <input class="form-control" type="text" name="name{{loop.index}}" value="{{sensorConfig.sensorname}}">
+                </div>
+
+
+
+                <div class="col-md-3 offset-md-1">
+                    <select name="sensorid{{ loop.index }}" class="form-control">
+                        {% for sensorid in sensorids %}
+                        <option>{{sensorid.thermosensor_id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
+            <br>
+            {% endfor %}
+
+        </div>
+        <div class="mx-auto" style="width: 400px;">
+            <button class="btn btn-success">Save</button>
+            &nbsp; &nbsp; &nbsp;
+            <button type="button" class="btn btn-danger">New row</button>
+            &nbsp; &nbsp; &nbsp;
+            <button type="button" class="btn btn-warning">Remowe row</button>
+        </div>
+
+    </form>
+
+    
+</div>
+<!-- Modal -->
+<div id="warningModal" class="modal fade" tabindex="-1" aria-hidden="true" style="color: black;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Only an empty field can be removed!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <!--<button type="button" class="btn btn-primary">Save</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script>
+    $(function () {
+
+        $(document).ready(function () {
+            $('.btn-danger').click(function () {
+                var text = '<div class="form-row "><div class="col-md-4 offset-md-2"><input class="form-control" type="text" name="name" value=""></div>' +
+                    '<div class="col-md-3 offset-md-1"><select name="sensorid" class="form-control">{% for sensorid in sensorids %}<option>{{sensorid.thermosensor_id}}</option>{% endfor %}</select></div>' +
+                    '<div class="col-md-2"></div></div></br>';
+                $('#configRow').append(text);
+            }
+            );
+
+            $('.btn-warning').click(function () {
+                var $lastRow = $('#configRow').find('.form-row:last');
+                var $lastBr = $('#configRow').find('br:last');
+                var $emptyLastInput = $('#configRow').find('input:last').filter(function () {
+                    return this.value === "";
+                });;
+
+                //if($lastRow.is(':first-child')){//az utolso kivalasztasa
+                if ($emptyLastInput.length != 0) {//csak akkor ha a üres az input mezo
+                    $lastRow.remove();
+                    $lastBr.remove();
+                } else {
+                    $("#warningModal").modal('show');
+                    //alert('Only an empty field can be removed!')
+                }
+
+
+
+            });
+
+        });
+
+    })
+
+</script>
+
+{% endblock %}

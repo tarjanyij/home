@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block styles_yet %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+
+{% endblock %}
+{% block page_content %}
+<div class=" container overflow-auto">
+    <br>
+    <br>
+    <form method="POST" action="/sensorconfig">
+        <div id="configRow">
+            
+            <div class="form-row ">
+                <div class="col-md-3 ">
+                    <p>Sensor name</p>
+                </div>
+                <div class="col-md-1 ">
+                    <p>Display order</p>
+                </div>
+                <div class="col-md-1 ">
+                    <p>Higher value</p>
+                </div>
+                <div class="col-md-1 ">
+                    <p>Gauge tick</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Sensor identity number</p>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            {% for sensorConfig in sensorConfigs %}
+            <div class="form-row ">
+                <div class="col-md-3">
+                    {% if sensorConfig.sensorname != '' %}
+                        <input class="form-control" type="text" name="name{{loop.index}}" value="{{sensorConfig.sensorname}}">
+                    {% else %}    
+                        <input class="form-control" type="text" name="name{{loop.index}}" placeholder="Enter sensor name">
+                    {% endif %}
+                </div>
+                <div class="col-md-1">
+                    <input class="form-control" type="text" name="display_order{{loop.index}}" value="{{sensorConfig.display_order}}">
+                </div>
+                <div class="col-md-1">
+                    <input class="form-control" type="text" name="highervalue{{loop.index}}" value="{{sensorConfig.highervalue}}">
+                </div>
+                <div class="col-md-1">
+                    <input class="form-control" type="text" name="tick{{loop.index}}" value="{{sensorConfig.tick}}">
+                </div>
+                <div class="col-md-3">
+                    <input class="form-control" type="text" name="sensorid{{loop.index}}" value="{{sensorConfig.sensorid}}" readonly>
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
+            <br>
+            {% endfor %}
+
+        </div>
+        <!-- <div class="mx-auto" style="width: 200px;"> -->
+        <div class="Save text-center">
+            <button class="btn btn-success">Save</button>
+        </div>
+
+    </form>
+
+    
+</div>
+<!-- Modal -->
+<div id="warningModal" class="modal fade" tabindex="-1" aria-hidden="true" style="color: black;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Only an empty field can be removed!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <!--<button type="button" class="btn btn-primary">Save</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script>
+    $(function () {
+
+        $(document).ready(function () {
+           
+
+        });
+
+    })
+
+</script>
+
+{% endblock %}
