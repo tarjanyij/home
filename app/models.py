@@ -13,13 +13,19 @@ class APIMix(object):
     def to_collection_dict(query):
         
         data = {
-            'items' : [item.to_dict() for item in query]
-           
+            'items' : [item.to_dict() for item in query]           
         }
         return data
-    
-   
-class User(UserMixin, db.Model):
+
+class UserMix(object):
+    @staticmethod
+    def to_collection_dict(query):
+        data = {
+            'items' : [item.to_dict() for item in query]
+        }
+        return data
+
+class User(UserMix, UserMixin, db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True)
@@ -53,16 +59,28 @@ class User(UserMixin, db.Model):
         if user is None or user.token_expiration < datetime.utcnow():
             return None
         return user
- # Define the Role data model
-    class Role(db.Model):
-        id = db.Column(db.Integer(), primary_key=True)
-        name = db.Column(db.String(50), unique=True)
+    
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'email': self.email,
+            'password': self.password,
+            'name': self.name,
+            'rolename' : self.roles[0].rolename,
+            'roleid' : self.roles[0].id
+        }
+        return data
 
-    # Define the UserRoles data model
-    class UserRoles(db.Model):
-        id = db.Column(db.Integer(), primary_key=True)
-        user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
-        role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
+# Define the Role data model
+class Role(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    rolename = db.Column(db.String(50), unique=True)
+
+# Define the UserRoles data model
+class UserRoles(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 class SensorConfig(db.Model):
     __tablename__ = "sensor_config"
@@ -85,7 +103,7 @@ class Temperature(APIMix, db.Model):
     SensorConfig = relationship("SensorConfig", cascade="save-update")
     
 
-    def to_dict(self, include_email=False):
+    def to_dict(self):
         data = {
             'id': self.id,
             'thermosensor_id': self.thermosensor_id,

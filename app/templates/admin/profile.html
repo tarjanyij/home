@@ -4,4 +4,12 @@
 <h1 class="title">
     Profile
 </h1>
+{% for item in user %}
+<p>{{ item.name }}</p>
+<p>{{ item.email }}</p>
+<p>{{ item.roles[0].name }}</p>
+
+
+
+{% endfor %}
 {% endblock %}

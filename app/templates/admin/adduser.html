@@ -14,25 +14,35 @@
             {% endif %}
             {% endwith %}
 
-            <form method="POST" action="#">
+            <form method="POST" action="adduser">
                 <div class="form-group form-check">
                     <div class="form-check-label">
-                        <input class="form-control form-control-lg" type="email" name="email" placeholder="Email"
+                        <input class="form-control form-control-md" type="email" name="email" placeholder="Email"
                             autofocus="" required >
                     </div>
                 </div>
 
                 <div class="form-group form-check">
                     <div class="form-check-label">
-                        <input class="form-control form-control-lg" type="text" name="name" placeholder="Name"
+                        <input class="form-control form-control-md" type="text" name="name" placeholder="Name"
                             autofocus="" required>
                     </div>
                 </div>
 
                 <div class="form-group form-check">
                     <div class="form-check-label">
-                        <input class="form-control form-control-lg" type="password" name="password"
+                        <input class="form-control form-control-md" type="password" name="password"
                             placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="form-group form-check">
+                    <div class="form-check-label">
+                        <select class="form-control form-control-md" name="role"
+                            placeholder="Password" required>
+                            {% for role in roles %}
+                            <option value="{{role.id}}">{{role.rolename}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
 
