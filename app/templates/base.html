@@ -19,14 +19,8 @@
 
     body {
         background-image: linear-gradient(140deg, #212629, #395467);
-        min-height: 150vh;
-        color: #fff;
         font-family: 'Open Sans', sans-serif;
-        position: relative;
-
     }
-    
-
 </style>
 {% endblock %}
 
@@ -34,10 +28,11 @@
 
 {% endblock %}
 
-{% block body_attribs %} class="overflow-hidden" {% endblock body_attribs %}
+{% block body_attribs %} class="d-flex flex-column min-vh-100 overflow-hidden text-white background-image" {% endblock
+body_attribs %}
 
 {% block navbar %}
-<header class="navbar sticky-top navbar-expand navbar-dark flex-column flex-md-row bd-navbar bg-primary">
+<header class="navbar navbar-expand-xl navbar-dark bd-navbar bg-primary">
     <a class="navbar-brand" href="#">
         <img src="{{ url_for('static',filename='orangepione.jpg') }}" width="30" height="30"
             class="d-inline-block align-top" alt="" loading="lazy">
@@ -60,28 +55,31 @@
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     Admin
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{{ url_for('admin.adduser') }}">Add User</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('admin.edituser') }}">Edit User</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li><a class="dropdown-item" href="{{ url_for('admin.profile') }}">Profile</a></li>
-                </ul>    
+                </ul>
             </li>
             {% endif %}
-            
+
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
             </li>
             {% endif %}
-            
+
             <!-- <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('auth.signup') }}">Signup</a>
             </li> -->
-            
+
             {% if current_user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('main.sensortemp') }}">Temperature</a>
@@ -110,10 +108,14 @@
 {% block content %}
 <main>
 
-    <div class="container fill-height overflow-auto">
-        {% block page_content %}
-        {% endblock %}
+
+    <div class="row min-vh-100">
+        <div class="col">
+            {% block page_content %}
+            {% endblock %}
+        </div>
     </div>
+
 
 </main>
 

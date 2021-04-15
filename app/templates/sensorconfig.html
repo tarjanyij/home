@@ -4,65 +4,76 @@
 
 {% endblock %}
 {% block page_content %}
-<div class=" container overflow-auto">
-    <br>
-    <br>
-    <form method="POST" action="/sensorconfig">
-        <div id="configRow">
-            
-            <div class="form-row ">
-                <div class="col-md-3 ">
-                    <p>Sensor name</p>
-                </div>
-                <div class="col-md-1 ">
-                    <p>Display order</p>
-                </div>
-                <div class="col-md-1 ">
-                    <p>Higher value</p>
-                </div>
-                <div class="col-md-1 ">
-                    <p>Gauge tick</p>
-                </div>
-                <div class="col-md-3">
-                    <p>Sensor identity number</p>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            {% for sensorConfig in sensorConfigs %}
-            <div class="form-row ">
-                <div class="col-md-3">
-                    {% if sensorConfig.sensorname != '' %}
-                        <input class="form-control" type="text" name="name{{loop.index}}" value="{{sensorConfig.sensorname}}">
-                    {% else %}    
-                        <input class="form-control" type="text" name="name{{loop.index}}" placeholder="Enter sensor name">
-                    {% endif %}
-                </div>
-                <div class="col-md-1">
-                    <input class="form-control" type="text" name="display_order{{loop.index}}" value="{{sensorConfig.display_order}}">
-                </div>
-                <div class="col-md-1">
-                    <input class="form-control" type="text" name="highervalue{{loop.index}}" value="{{sensorConfig.highervalue}}">
-                </div>
-                <div class="col-md-1">
-                    <input class="form-control" type="text" name="tick{{loop.index}}" value="{{sensorConfig.tick}}">
-                </div>
-                <div class="col-md-3">
-                    <input class="form-control" type="text" name="sensorid{{loop.index}}" value="{{sensorConfig.sensorid}}" readonly>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-            <br>
-            {% endfor %}
-
+<div class="container overflow-auto">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">SensorConfig</li>
+                </ol>
+            </nav>
         </div>
-        <!-- <div class="mx-auto" style="width: 200px;"> -->
-        <div class="Save text-center">
-            <button class="btn btn-success">Save</button>
+        <div class="col-12">
+            <form method="POST" action="/sensorconfig">
+                <div id="configRow">
+                    
+                    <div class="form-row ">
+                        <div class="col-md-3 ">
+                            <p>Sensor name</p>
+                        </div>
+                        <div class="col-md-1 ">
+                            <p>Display order</p>
+                        </div>
+                        <div class="col-md-1 ">
+                            <p>Higher value</p>
+                        </div>
+                        <div class="col-md-1 ">
+                            <p>Gauge tick</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>Sensor identity number</p>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+        
+                    {% for sensorConfig in sensorConfigs %}
+                    <div class="form-row ">
+                        <div class="col-md-3">
+                            {% if sensorConfig.sensorname != '' %}
+                                <input class="form-control" type="text" name="name{{loop.index}}" value="{{sensorConfig.sensorname}}">
+                            {% else %}    
+                                <input class="form-control" type="text" name="name{{loop.index}}" placeholder="Enter sensor name">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1">
+                            <input class="form-control" type="text" name="display_order{{loop.index}}" value="{{sensorConfig.display_order}}">
+                        </div>
+                        <div class="col-md-1">
+                            <input class="form-control" type="text" name="highervalue{{loop.index}}" value="{{sensorConfig.highervalue}}">
+                        </div>
+                        <div class="col-md-1">
+                            <input class="form-control" type="text" name="tick{{loop.index}}" value="{{sensorConfig.tick}}">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="sensorid{{loop.index}}" value="{{sensorConfig.sensorid}}" readonly>
+                        </div>
+                        <div class="col-md-2"></div>
+        
+                    </div>
+                    <br>
+                    {% endfor %}
+        
+                </div>
+                <!-- <div class="mx-auto" style="width: 200px;"> -->
+                <div class="Save text-center">
+                    <button class="btn btn-success">Save</button>
+                </div>
+        
+            </form>
         </div>
-
-    </form>
+    </div>
+    
 
     
 </div>

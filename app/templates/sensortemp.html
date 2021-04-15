@@ -4,27 +4,38 @@
 
 {% endblock %}
 {% block page_content %}
-
-<div class="container-fluid row text-center overflow-auto">
-    <div class="container row">
-        <div class="col text-left">
+<div class="container">
+<div class="row text-center overflow-auto">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">SensorTemp</li>
+            </ol>
+        </nav>
+    </div>
+   
+        <div class="col-6 text-left">
             <p >{{ rows[0].date }}</p>
         </div>
-        <div id="timeDown" class="com text-right">
+        <div id="timeDown" class="col-6 text-right">
             
         </div>
-    </div>
-    <div class="container row">
-        <div class="gauge-container">
+   
+    <div class="row w-100 justify-content-center gauge-container">
+       
             {% for row in rows %}
+            <div class="col-xl-4">
             <div class="gauge" id="{{row.SensorConfig.sensorid}}"></div>
+            </div>
             {% endfor %}
-        </div>
+        
     </div>
     <div class="container row text-left" >
         <div id="graphdiv" style="color: #fff;">
         </div>
     </div>
+</div>
 </div>
 
 <svg width="0" height="0" version="1.1" class="gradient-mask" xmlns="http://www.w3.org/2000/svg">

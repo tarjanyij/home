@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<h1 class="title">
-    Profile
-</h1>
-{% for item in user %}
-<p>{{ item.name }}</p>
-<p>{{ item.email }}</p>
-<p>{{ item.roles[0].name }}</p>
-
+<div class="container overflow-auto">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">Profile</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-12">
+            {% for item in user %}
+            <p>{{ item.name }}</p>
+            <p>{{ item.email }}</p>
+            <p>{{ item.roles[0].rolename }}</p>
+        </div>
+    </div>
+</div>
 
 
 {% endfor %}
