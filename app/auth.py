@@ -15,9 +15,11 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
-
-    user = User.query.filter_by(email=email).first()
-    
+    try: 
+        user = User.query.filter_by(email=email).first()
+    except:
+        return render_template('error/error.html',errorMessage='Nem érhető el az adatbázis')
+        
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):

@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_sqlalchemy import BaseQuery
-
+import json
 
 
 
@@ -63,7 +63,8 @@ def edituser_writedb():
     if operate == 'modaldata':
         user = User.query.filter(User.id == id)
         data = User.to_collection_dict(user)
-        return jsonify(data)
+        #return jsonify(data)
+        return json.dumps(data)
 
     elif operate =='edit':
         pass

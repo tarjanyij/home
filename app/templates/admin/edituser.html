@@ -124,9 +124,11 @@
          operate: 'modaldata'
        },
        function(data, status){
-        //alert("Data: " + data + "\nStatus: " + status);
-        var obj = jQuery.parseJSON(data);
-        $('#name').attr('value', obj.name);
+        alert("Data: " + data.object + "\nStatus: " + status);
+        console.log(data);
+        //var obj = jQuery.parseJSON(data.object);
+        $('#name').attr('value', data.name);
+        console.log(obj);
        });
     });
   });

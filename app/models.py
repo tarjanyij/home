@@ -13,7 +13,7 @@ class APIMix(object):
     def to_collection_dict(query):
         
         data = {
-            'items' : [item.to_dict() for item in query]           
+           item.to_dict() for item in query           
         }
         return data
 
